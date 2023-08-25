@@ -1,3 +1,5 @@
 authentication/.venv
 gateway/.venv
 authentication/manifests/secret*
+gateway/manifests/secret*
+rabbit/manifests/secret*
