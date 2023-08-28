@@ -6,12 +6,13 @@ def upload(f, fs, channel, access):
         #if success a fileId object will be returned
         fid = fs.put(f)
     except Exception as err:
+        print(err)
         return "internal server error", 500
 
     #then put a message in the queue, create async communication flow bettween gateway and converter, 
     # gateway returns response to client without waiting for video to be proccessed
     message = {
-        "video_fid": str(fid),
+        "video_fid": str(fid), # we convert it to string because it is an ID object and we make it object again in consumer (to_mp3.py)
         "mp3_fid": None,
         "username": access["username"],
     }
@@ -25,7 +26,8 @@ def upload(f, fs, channel, access):
                 delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE #messages persisted in queue in event of a pod crash/restart
             )
         )
-    except:
+    except Exception as err:
+        print(err)
         #if publish fails we delete it from mongo as it will never be processed
         # (improvent: we mark such videos and new service polls such videos for future retries)
         fs.delete(fid)
