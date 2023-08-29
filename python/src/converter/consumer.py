@@ -27,7 +27,7 @@ def main():
             # so that another process will process them
             ch.basic_nack(delivery_tag=method.delivery_tag)
         else:
-            ch.basic_ack(elivery_tag=method.delivery_tag)
+            ch.basic_ack(delivery_tag=method.delivery_tag)
 
     channel.basic_consume(
         #callback gets executed when a message is pulled off of the queue
