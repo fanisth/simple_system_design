@@ -1,7 +1,9 @@
 authentication/.venv
 gateway/.venv
 converter/.venv
+notification/.venv
 authentication/manifests/secret*
 gateway/manifests/secret*
 rabbit/manifests/secret*
 converter/manifests/secret*
+notification/manifests/secret*
